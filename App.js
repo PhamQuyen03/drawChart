@@ -7,26 +7,85 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React from 'react'
+import { AreaChart, YAxis, LineChart, Grid } from 'react-native-svg-charts'
+import * as shape from 'd3-shape'
+import { StyleSheet, View } from 'react-native'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+// const instructions = Platform.select({
+//   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+//   android:
+//     'Double tap R on your keyboard to reload,\n' +
+//     'Shake or press menu button for dev menu',
+// });
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends React.PureComponent {
   render() {
+    const dataLine = [-100, 100];
+    const data  = [ 50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, 20 ];
+    const data2 = [ 5, 1, 4, 9, -4, -24, 8, 9, 3, 5, -3, 4, 5, 0, 2 ];
+    const contentInset = { top: 10, bottom: 10 };
+
+
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
-    );
+        <View style={ { height: 300, flexDirection: 'row' } }>
+          {/* <YAxis
+              data={ dataLine }
+              contentInset={ contentInset }
+              svg={{
+                  fill: 'grey',
+                  fontSize: 10,
+              }}
+              numberOfTicks={ 10 }
+              formatLabel={ value => value }
+          />
+          <AreaChart
+              style={ { flex: 1 } }
+              data={ data }
+              svg={{ stroke: 'rgba(134, 65, 244, 0.5)' }}
+              contentInset={ { top: 20, bottom: 20 } }
+              curve={ shape.curveLinear }
+          >
+            <Grid/>
+          </AreaChart>
+          <AreaChart
+              style={ StyleSheet.absoluteFill }
+              data={ data2 }
+              svg={{ stroke: 'rgba(34, 128, 176, 0.5)' }}
+              contentInset={ { top: 20, bottom: 20 } }
+              curve={ shape.curveNatural }
+          /> */}
+          <YAxis
+            data={ dataLine }
+            contentInset={ contentInset }
+            svg={{
+                fill: 'grey',
+                fontSize: 10,
+            }}
+            numberOfTicks={ 10 }
+            formatLabel={ value => value }
+          />
+          <LineChart
+            style={{ flex: 1, marginLeft: 16 }}
+            data={ data }
+            svg={{ stroke: 'red' }}
+            contentInset={ contentInset }
+            curve={ shape.curveLinear }
+          >
+              <Grid/>
+          </LineChart>
+          <LineChart
+            style={ StyleSheet.absoluteFill }
+            data={ data2 }
+            svg={{ stroke: 'black' }}
+            curve={ shape.curveMonotoneX }
+            // contentInset={ contentInset }
+          />
+                {/* </LineChart> */}
+ 
+        </View>
+    )
   }
 }
 
